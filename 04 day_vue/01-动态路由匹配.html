@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript" src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script type="text/javascript">
+  // 提醒一下，当使用路由参数时，例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
+    let ComDesc = {
+      data() {
+        return {
+          msg: ''
+        }
+      },
+      template: '<div>{{msg}}</div>',
+      // 在当前组件内部监听路由信息变化
+      watch: {
+        '$route'(to, from) {
+          // 对路由变化作出响应...
+          this.msg = to.params.id;
+        },
+        created() {
+          this.msg = 'frontend'
+        }
+      },
+    }
+    let Timeline={
+      template:'<div>我是首页<router-link :to="{name:'comDesc'}">前端</router-link><router-view></router-view></div>'
+    }
+    let Pins={
+      template:'<div>我是沸点</div>'
+    }
+    let router = new VueRouter({
+      // mode:'history', 与服务器有关 不能在这设置
+      routes:[
+        {
+          path:'/timeline',
+          component:Timeline,
+          children:[
+            {
+              name:'comDesc',
+              //动态路由的参数，以冒号开头
+              path:'/timeline:id'
+            }
+          ]
+        },
+        {
+          path:'/pins',
+          component:Pins
+        }
+      ]
+    })
+    let App={
+      template: '<div>' +
+          '<router-link to="/timeline">首页</router-link><router-link to="/pins">沸点</router-link>' +
+          '<router-view></router-view></div>'
+    }
+    new Vue({
+      el:'#app',
+      router,
+      components:{
+        App
+      },
+      template:'<App/>'
+    })
+</script>
+</body>
+</html>

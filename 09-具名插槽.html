@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .default{
+            display: inline-block;
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            background: #fff;
+            border: 1px solid #dcdfe6;
+            color: #606266;
+            -webkit-appearance: none;
+            text-align: center;
+            box-sizing: border-box;
+            outline: none;
+            margin: 0;
+            transition: .1s;
+            font-weight: 500;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        .primary{
+            color: #fff;
+            background-color: #409eff;
+            border-color: #409eff;
+        }
+        .success{
+            color: #fff;
+            background-color: #67c23a;
+            border-color: #67c23a;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript">
+    Vue.component('myLi',{
+        template:'' +
+            '<li>' +
+            '<slot name="two"></slot>' +
+            '<slot name="three"></slot>' +
+            '</li>'
+        }
+    )
+    let App={
+      template:'<ul><myLi><h2 slot="two">我是第一个坑</h2><h3 slot="three">我是第二个坑</h3></myLi></ul>'
+    }
+ new Vue({
+   el:'#app',
+   data(){
+     return{}
+   },
+   components:{
+     App
+   },
+   template:'<App/>'
+ })
+</script>
+</body>
+</html>

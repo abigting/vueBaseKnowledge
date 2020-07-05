@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .default {
+            display: inline-block;
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            background: #fff;
+            border: 1px solid #dcdfe6;
+            color: #606266;
+            -webkit-appearance: none;
+            text-align: center;
+            box-sizing: border-box;
+            outline: none;
+            margin: 0;
+            transition: .1s;
+            font-weight: 500;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .primary {
+            color: #fff;
+            background-color: #409eff;
+            border-color: #409eff;
+        }
+
+        .success {
+            color: #fff;
+            background-color: #67c23a;
+            border-color: #67c23a;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript">
+  //过滤器的作用-为页面中的数据进行添油加醋
+  //有两种：局部过滤器 全局过滤器
+
+  //全局过滤器
+  Vue.filter('myReverse', function(value, arg){
+    return arg+value.split('').reverse().join('');
+  });
+  //申明过滤器
+  //{{数据|过滤器的名字}}
+  let App = {
+    data() {
+      return {
+        price: 0,
+        msg:'hello filter'
+      }
+    },
+    template: '<div><input type="number" v-model="price"/><h3>{{price|myCurrency}}</h3><h3>{{msg|myReverse("哈哈哈")}}</h3></div>',
+    filters: {
+      myCurrency: function (value) {
+        return '￥' + value
+      }
+    }
+  };
+  new Vue({
+    el: '#app',
+    data() {
+      return {}
+    },
+    components: {
+      App
+    },
+    template: '<App/>'
+  })
+</script>
+</body>
+</html>

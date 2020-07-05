@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<!--
+父组件中通过provide来提供变量，然后再子组件中通过inject来注入变量。
+不论子组件有多深，只要调用了inject那么就可以provider中的数据。而不是局限于只能从当前父组件的prop属性来获取数据，
+只要在父组件的生命周内，子组件都可以调用-->
+<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript">
+  Vue.component('Child',{
+    data(){
+      return{
+        msg:''
+      }
+    },
+    props:{
+      value: String
+    },
+    methods:{
+      changeValue(){
+        this.$emit('input', this.value)
+      }
+    },
+    template:'' +
+        '<div><input type="text" v-modal="value" @change="changeValue"></div>',
+    inject:['for']
+  });
+
+  Vue.component('Parent',{
+    data(){
+      return{
+        msg:'我是父组件的数据'
+      }
+    },
+    template:'<div><p>我是父亲</p><Child v-modal="msg" @input="input"/></div>',
+    methods:{
+      input(val){
+        console.log(val);
+      }
+    }
+  })
+  let App={
+    data(){
+      return{
+
+      }
+    },
+    provide:{
+      for:'他爹'
+    },
+    template:'<div><h2>我是入口组件</h2><Parent/></div>'
+  }
+
+  new Vue({
+    el:'#app',
+    data(){
+      return{
+
+      }
+    },
+    components:{
+      App
+    },
+    template:'<App/>'
+  })
+</script>
+</body>
+</html>

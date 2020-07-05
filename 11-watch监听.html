@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="msg">
+    <h3>{{msg}}</h3>
+    <button @click="stus[0].name='Fiona'">改变</button>
+    <h4>{{stus[0].name}}</h4>
+</div>
+<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript">
+
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        msg:'',
+        stus:[
+          {name:'Jack'}
+        ]
+      }
+    },
+    //总结：watch监听的是单个属性
+    // 基本的数据类型-简单监视
+    //负责数据类型-深度监视
+    watch:{
+      msg:function(newV, oldV){
+        console.log(newV, oldV);
+        if(newV==='turse'){
+          console.log('turse出来了')
+        }
+      },
+      //监听复杂数据类型-object array 深度监视
+      stus:{
+        deep:true,//深度监视
+        handler:function(newV, oldV){
+          console.log(newV)
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>

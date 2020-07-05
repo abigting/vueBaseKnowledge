@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript">
+  // 全局组件的创建
+  //第一个参数是组件的名字 第二个参数是options
+  Vue.component('Child',{
+    data(){
+      return{
+        message:''
+      }
+    },
+    template:'<div><input type="text" v-model="message" @input="valueChange"/></div></div>',
+    // emit:['message'],
+    methods:{
+      valueChange(e){
+        this.$emit('setData',e.target.value);
+      }
+    }
+  })
+
+  //1.声子
+  let App={
+    data(){
+      return{
+        msg: '我是父组件的数据'
+      }
+    },
+    emit:['message'],
+    template:'<div>' +
+        '<div>父组件：<h5 v-text="msg"></div>' +
+        '子组件：<Child @setData="getData"/>' +
+        '<div>' +
+        '</div>',
+    methods:{
+      getData(data){
+        this.msg=data
+      }
+    },
+    components: {
+
+    }
+  };
+
+  new Vue({
+    el:'#app',
+    data(){
+      return{
+
+      }
+    },
+    //3.挂子
+    components:{
+      App
+    },
+    //3.用子
+    template:'<App/>'
+  })
+</script>
+</body>
+</html>

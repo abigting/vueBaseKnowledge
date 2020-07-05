@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript" src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script type="text/javascript">
+    // 3.让vue使用该vuerouter创建
+    // Vue.use(VueRouter) 不是全局的时候使用这种方式挂
+    //4.创建router对象
+    var router =new
+    var App={
+      template:'' +
+          '<a href="">登录页面</a>'+
+          '<a href="">注册页面</a>'
+    }
+    new Vue({
+      el:'#app',
+      data(){
+        return{
+
+        }
+      },
+      components:{
+        App
+      },
+      template:'<APP/>'
+    })
+</script>
+</body>
+</html>

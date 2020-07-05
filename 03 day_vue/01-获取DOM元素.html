@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript">
+    Vue.component('subCom',{
+      template:'<div class="subCom"></div>'
+    })
+  let App={
+    data(){
+      return{
+
+      }
+    },
+    provide:{
+      for:'他爹'
+    },
+    template:'<div><button ref="btn">我是一个按钮</button><subCom ref="abc"></subCom></div>',
+    created(){
+      console.log(this.$refs.btn)
+    },
+    beforeMount(){
+      console.log(this.$refs.btn)
+    },
+    mounted(){
+      // 如果给标签绑定ref属性 = ‘xxx’属性 使用this.$refs.xxx获取原生的js DOM对象
+      //ref属性不能重名
+      // console.log(this.$refs.btn);
+      //如果是给组件绑定ref属性，那么this.$refs.xxx获取的是当前的组件对象
+      console.log(this.$refs.abc)
+    }
+  }
+    new Vue({
+      el:'#app',
+      data(){
+        return{
+
+        }
+      },
+      components:{
+        App
+      },
+      template:'<App/>'
+    })
+    // .$mount(document.querySelector('#app')) 如果没有 el:'#app',，这样写也能实现功能
+</script>
+</body>
+</html>

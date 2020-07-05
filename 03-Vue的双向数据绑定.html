@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--v-model 双向数据绑定体现 置灰体现在UI控件中 只能应用在有value属性中
+语法糖：甜甜的 v-bind:value v-on:input的体现
+-->
+<div id="app">
+<!--    <input type="text" v-model="msg">-->
+    <input type="text" v-bind:value="msg" v-on:input="valueChange">
+    <h3>{{msg}}</h3>
+</div>
+<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript">
+    new Vue({
+      el:'#app',
+      data(){
+        return{
+          msg:"大萌"
+        }
+      },
+      methods:{
+        valueChange(e){
+          this.msg=e.target.value;
+        }
+      }
+    })
+</script>
+</body>
+</html>

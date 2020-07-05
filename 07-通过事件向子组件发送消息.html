@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript" src="./node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript">
+  // 全局组件的创建
+  //第一个参数是组件的名字 第二个参数是options
+  Vue.component('Parent', {
+        data() {
+          return {
+            msg: '我是父组件的数据'
+          }
+        },
+        template: '<div>' +
+            '<p>我是一个父组件</p>' +
+            '<Child :childData="msg" @childHandler="childHandler"/>' +
+            '</div>',
+    methods:{
+      childHandler(value){
+        console.log(value,'value')
+      }
+    }
+      }
+  );
+
+  //父=》子
+  //1.先给父组件绑定自定义属性
+  //2.在子组件中使用props接收父组件传递的数据
+  //3.可以在子组件中任意使用
+
+  //子=》父
+  //先给父组件中绑定自定义的属性
+  //在子组件中使用$emit接收父组件的属性
+  Vue.component('Child', {
+        template: '<div>子组件<div/>' +
+            '<input type="text" v-model="childData" @input="changeValue(childData)">',
+        props: ['childData'],
+    methods:{
+      changeValue(val){
+        //自定义的事件一定通过$emit去触发
+        //$emit(自定义数据名，消息)
+        this.$emit('childHandler', val)
+      }
+    }
+      }
+  );
+  //1.Parent 2.Children
+
+  //1.声子
+  let App = {
+    data() {
+      return {}
+    },
+    methods: {
+      clickHanlder() {
+        console.log(this)
+      }
+    },
+    template: '<div>' +
+        '<Parent/>' +
+        '</div>',
+    components: {}
+  };
+
+  let vm = new Vue({
+    el: '#app',
+    data() {
+      return {}
+    },
+    //3.挂子
+    components: {
+      App
+    },
+    //3.用子
+    template: '<App/>'
+  })
+</script>
+</body>
+</html>
